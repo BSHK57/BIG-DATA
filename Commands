@@ -1,0 +1,1 @@
+hadoop jar /usr/lib/hadoop-0.20-mapreduce/contrib/streaming/hadoop-streaming-2.6.0-mr1-cdh5.4.2.jar -file /home/cloudera/126156019/coolest_year/mapper.py -file /home/cloudera/126156019/coolest_year/reducer.py -mapper "python mapper.py" -reducer "python reducer.py" -input /user/cloudera/coolest_year/temp.txt -output /user/cloudera/coolyear
