@@ -146,3 +146,56 @@ To implement the PageRank algorithm using the MapReduce paradigm, in order to ca
 
 ### Step 2: Initialization
 1. Assign an initial rank to each page:
+
+# PageRank using Hadoop MapReduce
+
+## Aim
+To implement the PageRank algorithm using the MapReduce paradigm, in order to calculate the importance of web pages based on their link structure.
+
+---
+
+## Algorithm
+
+### Step 1: Graph Construction
+1. Read input where each line contains a source page followed by its outlinks.
+2. Emit the **source page** and its adjacency list (comma-separated).
+
+### Step 2: Initialization
+1. Assign an initial rank to each page:
+
+INITIAL_RANK = 1 / TOTAL_PAGES
+
+2. Emit the page along with its initial rank and adjacency list.
+
+### Step 3: Iterative Rank Calculation (not shown fully in this snippet)
+1. For each page, distribute its rank equally among its outlinks.  
+2. Apply the PageRank formula with a damping factor `d` (commonly 0.85):
+
+PR(p) = (1 - d)/N + d * Σ (PR(q)/L(q))
+
+where:
+- `N` = total number of pages  
+- `PR(q)` = rank of page `q` linking to `p`  
+- `L(q)` = number of outlinks from `q`
+3. Repeat until convergence or for a fixed number of iterations.
+
+---
+
+## Result
+The program prepares data for the PageRank algorithm by:  
+- Constructing the adjacency list of pages.  
+- Assigning initial ranks to each page.  
+
+**Example Input**
+
+A B C B C C A D C
+
+**After Step 1 (Adjacency List)**
+
+A   B,C B   C C   A D   C
+
+**After Step 2 (Initialization, assuming 4 pages)**
+
+A   0.25,B,C B   0.25,C C   0.25,A D   0.25,C
+
+These outputs are then used in the iterative PageRank calculation to determine the final ranks of all pages.
